@@ -1,20 +1,18 @@
-import e from "express";
+import express from "express"
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
-import { createBook, deleteBook, getBooks, updateBook } from './services/books/books.controller.js';
+import { router } from "./services/books/books.router.js"
 
 dotenv.config();
 
+const app = express();
 
-const app = e();
-app.use(e.json());
+app.use(express.json());
 
 connectDB();
 
-app.post('/api/books', createBook);
-app.get('/api/books', getBooks );
-app.delete('/api/books/:id', deleteBook);
-app.put('/api/books/:id', updateBook);
+app.use('/api/books', router);
+
 
 app.listen(5000, () => {
     console.log('Server started on port 5000');
