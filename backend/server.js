@@ -1,19 +1,17 @@
 import express from "express"
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
-import { router } from "./services/books/books.router.js"
+import { bookRouter } from "./services/books/books.router.js"
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.json());
-
 connectDB();
 
-app.use('/api/books', router);
+app.use('/api/books', bookRouter);
 
-
-app.listen(5000, () => {
-    console.log('Server started on port 5000');
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+    console.log(`Server started on port http://localhost:${PORT}`);
 })
