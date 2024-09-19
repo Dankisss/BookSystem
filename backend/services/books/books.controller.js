@@ -18,6 +18,9 @@ export const createBook = async (req, res) => {
 };
 
 export const getBooks = async (req, res) => {
+    if(!req.user) {
+        return res.status(401).json( {success: false, message: "Unauthorized" });
+    }
     try {
         const books = await Book.find({});
 
